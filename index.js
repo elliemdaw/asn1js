@@ -2872,7 +2872,7 @@ ASN1.decode = function (stream) {
 
 var Hex = {},
     decoder, // populated on first usage
-    haveU8 = ('Uint8Array' in global);
+    haveU8 = true;
 
 Hex.decode = function(a) {
     var i;
@@ -2919,7 +2919,7 @@ Hex.decode = function(a) {
 
 var Base64 = {},
     decoder, // populated on first usage
-    haveU8 = ('Uint8Array' in global);
+    haveU8 = true;
 
 Base64.decode = function (a) {
     var i;
