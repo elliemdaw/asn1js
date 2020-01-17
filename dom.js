@@ -4,7 +4,7 @@
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -16,8 +16,8 @@
 (function (undefined) {
 "use strict";
 
-var ASN1 = (typeof module !== 'undefined') ? require('./asn1.js') : window.ASN1,
-    oids = (typeof module !== 'undefined') ? require('./oids.js') : window.oids,
+var ASN1 = require('./asn1.js'),
+    oids = require('./oids.js'),
     lineLength = 80,
     contentLength = 8 * lineLength,
     DOM = {

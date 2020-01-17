@@ -4,7 +4,7 @@
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -16,8 +16,8 @@
 (function (undefined) {
 "use strict";
 
-var Int10 = (typeof module !== 'undefined') ? require('./int10.js') : window.Int10,
-    oids = (typeof module !== 'undefined') ? require('./oids.js') : window.oids,
+var Int10 = require('./int10.js'),
+    oids = require('./oids.js'),
     ellipsis = "\u2026",
     reTimeS =     /^(\d\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])([01]\d|2[0-3])(?:([0-5]\d)(?:([0-5]\d)(?:[.,](\d{1,3}))?)?)?(Z|[-+](?:[0]\d|1[0-2])([0-5]\d)?)?$/,
     reTimeL = /^(\d\d\d\d)(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])([01]\d|2[0-3])(?:([0-5]\d)(?:([0-5]\d)(?:[.,](\d{1,3}))?)?)?(Z|[-+](?:[0]\d|1[0-2])([0-5]\d)?)?$/;
@@ -503,5 +503,5 @@ ASN1.decode = function (stream) {
 };
 
 // export globals
-if (typeof module !== 'undefined') { module.exports = ASN1; } else { window.ASN1 = ASN1; }
+if (typeof module !== 'undefined') { module.exports = ASN1; }// else { window.ASN1 = ASN1; }
 })();

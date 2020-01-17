@@ -4,7 +4,7 @@
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 // WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
@@ -18,7 +18,7 @@
 
 var Base64 = {},
     decoder, // populated on first usage
-    haveU8 = ('Uint8Array' in (typeof window == 'object' ? window : global));
+    haveU8 = ('Uint8Array' in global);
 
 Base64.decode = function (a) {
     var i;
@@ -97,5 +97,5 @@ Base64.unarmor = function (a) {
 };
 
 // export globals
-if (typeof module !== 'undefined') { module.exports = Base64; } else { window.Base64 = Base64; }
+if (typeof module !== 'undefined') { module.exports = Base64; }// else { window.Base64 = Base64; }
 })();
