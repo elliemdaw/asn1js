@@ -2997,15 +2997,86 @@ Base64.unarmor = function (a) {
     return Base64.decode(a);
 };
 
+var lineLength = 80,
+    contentLength = 8 * lineLength,
+DOM = {
+    ellipsis: "\u2026",
+    tag: function (tagName, className) {
+        var t = {
+          tagName: tagName,
+          className: className
+        };
+        return t;
+    },
+    text: function (str) {
+        return str;
+    },
+    space: function () {
+        var t = ' ';
+        return t;
+    },
+    breakLines: function (str, length) {
+        var lines = str.split(/\r?\n/),
+            o = '';
+        for (var i = 0; i < lines.length; ++i) {
+            var line = lines[i];
+            if (i > 0) o += "\n";
+            while (line.length > length) {
+                o += line.substring(0, length);
+                o += "\n";
+                line = line.substring(length);
+            }
+            o += line;
+        }
+        return o;
+    }
+};
+
+ASN1.prototype.toDOM = function (spaces) {
+  spaces = spaces || '';
+  var isOID = (typeof oids === 'object') && (this.tag.isUniversal() && (this.tag.tagNumber == 0x06));
+  var node = DOM.tag("div", "node");
+  node.asn1 = this;
+  var head = DOM.tag("div", "head");
+  var content = this.content(contentLength);
+  if (content !== null) {
+      var preview = DOM.tag("span", "preview"),
+          shortContent;
+      if (isOID)
+          content = content.split('\n', 1)[0];
+      shortContent = (content.length > lineLength) ? content.substring(0, lineLength) + DOM.ellipsis : content;
+      preview.attr = DOM.text(shortContent);
+      if (isOID) {
+          var oid = oids[content];
+          if (oid) {
+            oids_info.push(oid);
+          }
+      }
+      head.preview_obj = preview;
+  }
+  node.head_obj = head;
+  var sub = DOM.tag("div", "sub");
+  if (this.sub !== null) {
+      spaces += '\xA0 ';
+      for (var i = 0, max = this.sub.length; i < max; ++i)
+          sub.inside = this.sub[i].toDOM(spaces);
+  }
+  node.inside = sub;
+  return node;
+};
+
+var oids_info;
 var maxLength = 10240,
     reHex = /^\s*(?:[0-9A-Fa-f][0-9A-Fa-f]\s*)+$/,
     hash = null;
 
 function decode(der) {
     try {
-        var asn1 = ASN1.decode(der);
-        return asn1;//.toDOM();
+        oids_info = [];
+        var asn1 = ASN1.decode(der).toDOM();
+        return(JSON.stringify(oids_info));
     } catch (e) {
+        console.log(e);
         return "error during asn1 decode";
     }
 }
